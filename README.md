@@ -11,6 +11,10 @@ A clean, modern dialer and contacts app for Android, built with Jetpack Compose.
 [![Crowdin](https://img.shields.io/badge/Localization-Crowdin-0EA5E9?logo=crowdin&style=flat-square)](https://crowdin.com/project/rivophone)
 
 <p align="center">
+  <img src="playstore/cover-feature-graphic.png" alt="Rivo Feature Graphic" width="100%">
+</p>
+
+<p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.grinch.rivo4">
     <img src="images/download_stable.png" alt="Download from Google Play" height="42">
   </a>
@@ -62,23 +66,16 @@ A clean, modern dialer and contacts app for Android, built with Jetpack Compose.
 ## Screenshots
 
 <p align="center">
-  <img src="images/1.png" width="280" alt="Recents">
-  <img src="images/2.png" width="280" alt="Dialpad">
-  <img src="images/3.png" width="280" alt="Contact Details">
+  <img src="playstore/phone/01-promo.png" width="220" alt="Rivo Dial & Call">
+  <img src="playstore/phone/02-t9-dialpad.png" width="220" alt="T9 Dialpad & Speed Dial">
+  <img src="playstore/phone/03-recents-favorites.png" width="220" alt="Recents & Favorites">
+  <img src="playstore/phone/04-call-screen-recording.png" width="220" alt="Call Screen & Audio Recording">
 </p>
 <p align="center">
-  <img src="images/4.png" width="280" alt="Settings (Dark)">
-  <img src="images/5.png" width="280" alt="In-Call Screen (Dark)">
-  <img src="images/6.png" width="280" alt="Private Contacts Vault">
-</p>
-<p align="center">
-  <img src="images/7.png" width="280" alt="In-Call Screen (Light)">
-  <img src="images/8.png" width="280" alt="Call Analytics & Tracking">
-  <img src="images/9.png" width="280" alt="Manage Contacts & Storage">
-</p>
-<p align="center">
-  <img src="images/10.png" width="280" alt="UI & Dynamic Theming">
-  <img src="images/11.png" width="280" alt="Settings Overview">
+  <img src="playstore/phone/05-contacts-personalization.png" width="220" alt="Contacts & Personalization">
+  <img src="playstore/phone/06-private-vault.png" width="220" alt="Private Contacts Vault">
+  <img src="playstore/phone/07-call-analytics.png" width="220" alt="Call Analytics & Tracking">
+  <img src="playstore/phone/08-material-you-customization.png" width="220" alt="Material You & Customization">
 </p>
 
 ---
