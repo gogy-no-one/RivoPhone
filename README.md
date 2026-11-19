@@ -16,17 +16,11 @@ A clean, modern dialer and contacts app for Android, built with Jetpack Compose.
 
 <p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.grinch.rivo4">
-    <img src="images/download_stable.png" alt="Download from Google Play" height="42">
+    <img src="images/play.png" alt="Get Stable on Google Play" height="42">
   </a>
   &nbsp;
-  <a href="https://github.com/user-grinch/RivoPhone/releases/download/preview/RivoPhone.apk">
-    <img src="images/download_preview.png" alt="Download Preview APK" height="42">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://play.google.com/store/apps/details?id=com.grinch.rivo4">
-    <img src="images/play.png" alt="Get it on Google Play" height="42">
+  <a href="https://github.com/user-grinch/RivoPhone/releases/tag/beta">
+    <img src="images/github.png" alt="Get Beta on GitHub" height="42">
   </a>
   &nbsp;
   <a href="https://discord.gg/NtEvU3726e">
@@ -36,15 +30,11 @@ A clean, modern dialer and contacts app for Android, built with Jetpack Compose.
   <a href="https://www.patreon.com/c/grinch_">
     <img src="images/patreon.png" alt="Donate on Patreon" height="42">
   </a>
-  &nbsp;
-  <a href="#Donation">
-    <img src="images/tipjar.png" alt="In-App Tip Jar" height="42">
-  </a>
   <br>
 </p>
 
 > [!NOTE]  
-> **Preview Builds:** Automated preview APKs are compiled directly from the latest codebase and published under **[Releases](https://github.com/user-grinch/RivoPhone/releases)**. You can also join our **[Discord Server](https://discord.gg/NtEvU3726e)** to test upcoming features and chat with the community!
+> **Release Channels:** Official **Stable** releases are distributed on **[Google Play](https://play.google.com/store/apps/details?id=com.grinch.rivo4)**, while automated **Beta** APKs compiled directly from the latest codebase are published on **[GitHub Releases](https://github.com/user-grinch/RivoPhone/releases)**. Join our **[Discord Server](https://discord.gg/NtEvU3726e)** to discuss upcoming features and chat with the community!
 
 </div>
 
@@ -82,35 +72,11 @@ A clean, modern dialer and contacts app for Android, built with Jetpack Compose.
 
 ## Downloads
 
-- **Google Play (Recommended)**: Download the official stable release from [Google Play](https://play.google.com/store/apps/details?id=com.grinch.rivo4).
-- **Preview Builds (Direct APK)**: Direct APK builds compiled directly from the latest `main` branch are published under [Releases](https://github.com/user-grinch/RivoPhone/releases).
-  - Download [RivoPhone.apk (Preview)](https://github.com/user-grinch/RivoPhone/releases/download/preview/RivoPhone.apk)
-- **Discord Community**: Join our [Discord Server](https://discord.gg/NtEvU3726e) to discuss upcoming features, test beta builds, and report issues.
-
-<details>
-<summary><b>APK Signing Certificate Hash (SHA-256)</b></summary>
-
-```text
-Package: com.grinch.rivo4
-SHA-256: AF:7B:C8:10:1A:C9:D7:4B:93:5B:31:4B:71:C7:EE:1D:ED:0F:9D:45:AB:07:4C:72:7F:82:11:89:F4:56:50:C5
-```
-</details>
-
-## Donation
-
-If you enjoy Rivo and would like to support its continued development:
-
-- **Patreon**: Support monthly on [Patreon](https://www.patreon.com/c/grinch_)
-- **Google Play**: Use the in-app tip jar located in **Settings $\rightarrow$ Support Development**
+- **Stable (Google Play — Recommended)**: Download the official stable release from [Google Play](https://play.google.com/store/apps/details?id=com.grinch.rivo4).
+- **Beta (GitHub Releases — Direct APK)**: Automated beta APK builds compiled directly from the latest `main` branch are published under [GitHub Releases](https://github.com/user-grinch/RivoPhone/releases).
+  - Download [RivoPhone.apk (Beta)](https://github.com/user-grinch/RivoPhone/releases/download/beta/RivoPhone.apk)
+- **Discord Community**: Join our [Discord Server](https://discord.gg/NtEvU3726e) to discuss upcoming features, share feedback on beta builds, and report issues.
 
 ## License
 
 Copyright &copy; 2025&ndash;2026 Grinch_. All rights reserved.
-
----
-
-<div align="center">
-
-Made with care by [Grinch](https://github.com/user-grinch)
-
-</div>
