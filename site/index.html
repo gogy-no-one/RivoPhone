@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rivo — Clean &amp; Expressive Dialer for Android</title>
-  <meta name="description" content="Rivo is a clean, modern dialer and contacts app for Android built with Jetpack Compose, Material 3 Expressive, T9 speed dial, comprehensive call analytics, and a biometric Private Vault." />
-  <meta name="keywords" content="Rivo, Android dialer, Jetpack Compose phone app, Private Contacts Vault, Material 3 Expressive, T9 dialer, call analytics, dual SIM dialer" />
+  <meta name="description" content="Rivo is a clean, modern dialer and contacts app for Android built with Jetpack Compose, Material 3 Expressive, T9 speed dial, rootless 2-way call recording, and a biometric Private Vault." />
+  <meta name="keywords" content="Rivo, Android dialer, Jetpack Compose phone app, call recording, Rivo Recorder, Private Contacts Vault, Material 3 Expressive, T9 dialer, dual SIM dialer" />
   <meta name="theme-color" content="#0461A3" />
   <link rel="icon" type="image/png" href="assets/rivo-icon.png" />
   <link rel="apple-touch-icon" href="assets/rivo-icon.png" />
@@ -13,13 +13,13 @@
   <!-- Open Graph / Facebook / Discord -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rivo — Clean &amp; Expressive Dialer for Android" />
-  <meta property="og:description" content="Lightning-fast T9 speed dial, intelligent Dual SIM support, biometric Private Vault, and Material 3 Expressive personalization for Android." />
+  <meta property="og:description" content="Lightning-fast T9 speed dial, rootless 2-way call recording, intelligent Dual SIM support, biometric Private Vault, and Material 3 Expressive personalization for Android." />
   <meta property="og:image" content="assets/screenshots/6.png" />
 
   <!-- Twitter Meta -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Rivo — Clean &amp; Expressive Dialer for Android" />
-  <meta name="twitter:description" content="Lightning-fast T9 speed dial, intelligent Dual SIM support, biometric Private Vault, and Material 3 Expressive personalization for Android." />
+  <meta name="twitter:description" content="Lightning-fast T9 speed dial, rootless 2-way call recording, intelligent Dual SIM support, biometric Private Vault, and Material 3 Expressive personalization for Android." />
   <meta name="twitter:image" content="assets/screenshots/6.png" />
 
   <!-- Google Rich Snippet Structured Data (Schema.org) -->
@@ -35,7 +35,7 @@
       "price": "0",
       "priceCurrency": "USD"
     },
-    "description": "Clean, modern dialer and contacts app for Android built with Jetpack Compose, intelligent Dual SIM support, and a biometric Private Vault.",
+    "description": "Clean, modern dialer and contacts app for Android built with Jetpack Compose, rootless 2-way call recording, intelligent Dual SIM support, and a biometric Private Vault.",
     "downloadUrl": "https://play.google.com/store/apps/details?id=com.grinch.rivo4"
   }
   </script>
@@ -118,7 +118,7 @@
           <h1 class="hero-title">A clean, <span>expressive</span> dialer for Android.</h1>
 
           <p class="hero-subtitle">
-            Built with Jetpack Compose — featuring lightning-fast T9 speed dial, intelligent Dual SIM support, smart call analytics, and a biometric Private Vault.
+            Built with Jetpack Compose — featuring lightning-fast T9 speed dial, rootless 2-way call recording, intelligent Dual SIM support, and a biometric Private Vault.
           </p>
 
           <div class="cta-row">
@@ -138,6 +138,16 @@
               </svg>
               <span>Download Beta</span>
               <span class="btn-badge">Beta</span>
+            </a>
+
+            <a class="btn btn-outline btn-hero btn-companion" href="https://github.com/user-grinch/RivoPhone/releases/download/beta/RivoRecorder.apk" target="_blank" rel="noopener noreferrer">
+              <svg class="btn-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" x2="12" y1="19" y2="22"/>
+              </svg>
+              <span>Download Rivo Recorder</span>
+              <span class="btn-badge">Companion</span>
             </a>
           </div>
         </div>
@@ -338,18 +348,34 @@
         </div>
 
         <div class="bento-grid">
-          <!-- Bento 1: Comprehensive Call Analytics & Tracking (Wide 2-col) -->
+          <!-- Bento 1: Built-In 2-Way Call Recording (Wide 2-col) -->
           <article class="card bento-card bento-wide" data-category="calling">
             <div class="bento-badge-row">
-              <span class="feature-tag">Smart Analytics</span>
-              <span class="badge-accent">100% On-Device · Zero Telemetry</span>
+              <span class="feature-tag">Call Recording</span>
+              <span class="badge-accent">Rootless 2-Way · Rivo Recorder</span>
             </div>
             <div class="bento-content">
-              <h3>Comprehensive Call Analytics &amp; Insights</h3>
-              <p>Gain deep visibility into your communication habits with on-device duration statistics, inbound versus outbound distributions, contact frequency metrics, and interactive charts.</p>
+              <h3>Built-In 2-Way Call Recording</h3>
+              <p>Capture crystal-clear, two-way call audio directly on your device with zero root required using the Rivo Recorder companion app. Pair once over Wireless Debugging for automatic recording rules, compact Opus audio storage, auto-cleanup, and built-in playback right inside Rivo.</p>
             </div>
-            <div class="bento-visual">
-              <img src="assets/screenshots/8.png" alt="Call Analytics" style="max-height: 220px; border-radius: 16px; object-fit: contain;" />
+            <div class="tools-badges-row">
+              <span class="tool-badge">🎙️ 2-Way Audio Capture</span>
+              <span class="tool-badge">🔓 No Root Required</span>
+              <span class="tool-badge">⚡ Auto-Record Rules</span>
+              <span class="tool-badge">💾 100% Local Storage</span>
+            </div>
+            <div class="bento-recording-footer">
+              <div class="bento-visual">
+                <img src="assets/screenshots/7.png" alt="Rivo In-Call Recording Screen" style="max-height: 220px; border-radius: 16px; object-fit: contain;" />
+              </div>
+              <a class="bento-recording-cta" href="https://github.com/user-grinch/RivoPhone/releases/download/beta/RivoRecorder.apk" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" x2="12" y1="15" y2="3"/>
+                </svg>
+                <span>Download Rivo Recorder APK</span>
+              </a>
             </div>
           </article>
 
@@ -571,13 +597,26 @@
           <details class="card faq-item">
             <summary class="faq-question">
               <div class="faq-q-left">
+                <span class="faq-cat-badge">Call Recording</span>
+                <span>How does rootless 2-way call recording work with Rivo Recorder?</span>
+              </div>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>Install the <a href="https://github.com/user-grinch/RivoPhone/releases/download/beta/RivoRecorder.apk" target="_blank" rel="noopener noreferrer"><strong>Rivo Recorder</strong></a> companion app from GitHub Beta Releases and complete the guided one-time Wireless Debugging pairing. Once connected, Rivo captures clear two-way call audio with zero root required, supports automatic recording and cleanup rules, and stores every recording privately on your device.</p>
+            </div>
+          </details>
+
+          <details class="card faq-item">
+            <summary class="faq-question">
+              <div class="faq-q-left">
                 <span class="faq-cat-badge">Zero Telemetry</span>
                 <span>Is Rivo truly privacy-first? Does it track or upload any data?</span>
               </div>
               <span class="faq-icon" aria-hidden="true">+</span>
             </summary>
             <div class="faq-answer">
-              <p>Rivo operates under a strict zero-telemetry policy. All contact indexing, T9 lookup calculations, and call analytics remain 100% on your local device. Rivo has no remote telemetry servers, requires no user account, serves zero advertisements, and never sells or uploads your personal information.</p>
+              <p>Rivo operates under a strict zero-telemetry policy. All contact indexing, T9 lookup calculations, call recordings, and call analytics remain 100% on your local device. Rivo has no remote telemetry servers, requires no user account, serves zero advertisements, and never sells or uploads your personal information.</p>
             </div>
           </details>
         </div>
@@ -592,13 +631,13 @@
           <div class="banner-content">
             <span class="pill pill-bright">Get Started Today</span>
             <h2 class="banner-title">Upgrade your Android calling experience.</h2>
-            <p class="banner-sub">Experience blazing-fast T9 dial search, intelligent Dual SIM switching, biometric contact isolation, and delightful Material 3 Expressive personalization.</p>
+            <p class="banner-sub">Experience blazing-fast T9 dial search, rootless 2-way call recording, intelligent Dual SIM switching, biometric contact isolation, and delightful Material 3 Expressive personalization.</p>
 
             <div class="banner-trust-tags">
               <span class="trust-tag">⚡ 120Hz Jetpack Compose</span>
+              <span class="trust-tag">🎙️ 2-Way Call Recording</span>
               <span class="trust-tag">🛡️ 100% On-Device Privacy</span>
               <span class="trust-tag">✨ 36 Expressive Shapes</span>
-              <span class="trust-tag">📊 Smart Call Analytics</span>
             </div>
 
             <div class="cta-row banner-cta-row">
@@ -618,6 +657,16 @@
                 </svg>
                 <span>Download Beta</span>
                 <span class="btn-badge">Beta</span>
+              </a>
+
+              <a class="btn btn-outline btn-hero btn-companion" href="https://github.com/user-grinch/RivoPhone/releases/download/beta/RivoRecorder.apk" target="_blank" rel="noopener noreferrer">
+                <svg class="btn-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" x2="12" y1="19" y2="22"/>
+                </svg>
+                <span>Download Rivo Recorder</span>
+                <span class="btn-badge">Companion</span>
               </a>
             </div>
           </div>
@@ -703,6 +752,7 @@
       <nav class="footer-links" aria-label="Footer links">
         <a href="https://play.google.com/store/apps/details?id=com.grinch.rivo4" target="_blank" rel="noopener noreferrer">Google Play</a>
         <a href="https://github.com/user-grinch/RivoPhone/releases/tag/beta" target="_blank" rel="noopener noreferrer">Beta Release</a>
+        <a href="https://github.com/user-grinch/RivoPhone/releases/download/beta/RivoRecorder.apk" target="_blank" rel="noopener noreferrer">Rivo Recorder</a>
         <a href="https://discord.gg/NtEvU3726e" target="_blank" rel="noopener noreferrer">Discord</a>
         <a href="https://crowdin.com/project/rivophone" target="_blank" rel="noopener noreferrer">Crowdin</a>
         <a href="https://www.patreon.com/c/grinch_" target="_blank" rel="noopener noreferrer">Patreon</a>

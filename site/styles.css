@@ -432,6 +432,18 @@ button {
   color: var(--md-on-secondary-container);
 }
 
+.btn-outline {
+  background: var(--md-surface-low);
+  color: var(--md-on-background);
+  border: 1.5px solid var(--md-outline-variant);
+}
+
+.btn-outline:hover {
+  background: var(--md-surface);
+  border-color: var(--md-primary);
+  color: var(--md-primary);
+}
+
 .btn-badge {
   display: inline-block;
   padding: 2px 7px;
@@ -549,7 +561,7 @@ button {
 .cta-row {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
@@ -1543,6 +1555,35 @@ button {
   margin-top: 22px;
 }
 
+.bento-recording-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.bento-recording-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  font-size: 0.84rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease);
+}
+
+.bento-recording-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary);
+  text-decoration: none;
+}
+
 .tool-badge {
   display: inline-flex;
   align-items: center;
@@ -1967,6 +2008,19 @@ button {
   transform: translateY(-2px);
 }
 
+.download-banner-card .btn-outline {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.download-banner-card .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
 /* --------------------------------------------------------------------------
    Community & Support
    -------------------------------------------------------------------------- */
@@ -2278,20 +2332,25 @@ button {
   .cta-row,
   .banner-cta-row {
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
   }
 
   .cta-row .btn,
   .banner-cta-row .btn {
-    flex: 1 1 50%;
+    flex: 1 1 calc(50% - 4px);
     min-width: 0;
-    padding: 12px 6px;
-    font-size: 0.76rem;
-    gap: 4px;
+    padding: 12px 10px;
+    font-size: 0.78rem;
+    gap: 5px;
     justify-content: center;
     white-space: nowrap;
+  }
+
+  .cta-row .btn-companion,
+  .banner-cta-row .btn-companion {
+    flex: 1 1 100%;
   }
 
   .cta-row .btn .btn-icon,
