@@ -1699,10 +1699,6 @@ fun ContactDetailsScreen(
                         }
                     }
 
-                    item {
-                        com.grinch.rivo4.view.components.ad.BannerAd()
-                    }
-
                     if (contactRecordings.isNotEmpty()) {
                         item {
                             RivoExpressiveGroup(
