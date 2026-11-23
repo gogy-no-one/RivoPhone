@@ -70,7 +70,6 @@ import com.grinch.rivo4.view.components.RivoExpressiveCard
 import com.grinch.rivo4.view.components.RivoExpressiveGroup
 import com.grinch.rivo4.view.components.RivoListItem
 import com.grinch.rivo4.view.components.RivoSwitchListItem
-import com.grinch.rivo4.view.components.ad.IS_ADS_SUPPORTED
 import com.grinch.rivo4.view.theme.RivoMaterialShapes
 import com.grinch.rivo4.view.theme.rememberRivoMorphShape
 import com.grinch.rivo4.view.theme.rivoPolygonShape
@@ -93,9 +92,6 @@ fun SettingsScreen(
     val searchListState = rememberLazyListState()
     val appInfo = remember { getAppVersion(context) }
     val cookie7Shape = rivoPolygonShape(RivoMaterialShapes.Cookie7Sided)
-
-    var enableAds by remember(settingsState) { mutableStateOf(prefs.getBoolean(PreferenceManager.KEY_ENABLE_ADS, true)) }
-    var showDisableAdsDialog by remember { mutableStateOf(false) }
 
     var isSearchActive by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
@@ -1612,7 +1608,7 @@ val searchItems = remember(isSearchActive) {
                             leadingIcon = Icons.Outlined.Analytics,
                             onClick = {
                                 prefs.addSettingsHistory(headline)
-                                navigator.navigate(CallAnalyticsScreenDestination)
+                                navigator.navigate(CallAnalyticsScreenDestination())
                             }
                         )
                     }
@@ -1719,10 +1715,6 @@ val searchItems = remember(isSearchActive) {
             }
 
             item {
-                com.grinch.rivo4.view.components.ad.BannerAd()
-            }
-
-            item {
                 Text(
                     text = context.getString(R.string.about_copyright),
                     style = MaterialTheme.typography.labelMedium,
@@ -1735,46 +1727,6 @@ val searchItems = remember(isSearchActive) {
             }
         }
         }
-
-        if (showDisableAdsDialog) {
-            RivoDialog(
-                onDismissRequest = { showDisableAdsDialog = false },
-                title = context.getString(R.string.ads_disable_dialog_title),
-                icon = Icons.Outlined.Favorite,
-                confirmAction = RivoDialogAction(
-                    label = context.getString(R.string.ads_disable_dialog_confirm),
-                    onClick = {
-                        enableAds = false
-                        prefs.setBoolean(PreferenceManager.KEY_ENABLE_ADS, false)
-                        showDisableAdsDialog = false
-                    }
-                ),
-                dismissAction = RivoDialogAction(
-                    label = context.getString(R.string.ads_disable_dialog_keep),
-                    onClick = { showDisableAdsDialog = false }
-                )
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = context.getString(R.string.ads_disable_dialog_body),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    TextButton(
-                        onClick = {
-                            openLink(context, PATREON_URL)
-                            showDisableAdsDialog = false
-                        }
-                    ) {
-                        Icon(Icons.Outlined.VolunteerActivism, contentDescription = null)
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(context.getString(R.string.patreon_prompt_confirm))
-                    }
-                }
-            }
-        }
-
     }
 }
 
