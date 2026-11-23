@@ -570,11 +570,9 @@ class PreferenceManager(context: Context) {
         const val KEY_BOTTOM_NAV_HIDDEN = "bottom_nav_hidden"
         const val KEY_MERGE_FAVORITES_RECENTS = "merge_favorites_recents"
         const val KEY_RECENTS_FAVORITES_COLLAPSED = "recents_favorites_collapsed"
-        const val KEY_ENABLE_ADS = "enable_ads"
         const val KEY_IS_SUPPORTER = "is_supporter"
         const val KEY_SUPPORT_PURCHASE_TOKEN = "support_purchase_token"
         const val KEY_SUPPORT_PURCHASE_PRODUCT = "support_purchase_product"
-        const val KEY_PRO_AD_EXPIRY = "pro_ad_expiry"
         const val KEY_POST_CALL_SCREEN = "post_call_screen"
         const val KEY_NAV_BAR_STYLE = "nav_bar_style"
         const val NAV_BAR_STYLE_STANDARD = 0
@@ -666,18 +664,8 @@ class PreferenceManager(context: Context) {
         const val KEY_SHOW_COUNTRY_CODE = "show_country_code"
         const val KEY_SETTINGS_HISTORY = "settings_history"
         const val KEY_PRO_STATUS = "pro_status"
-        const val KEY_VIDEO_AD_REMINDER_MODE = "video_ad_reminder_mode"
-        const val KEY_LAST_VIDEO_AD_REMINDER = "last_video_ad_reminder"
-        const val VIDEO_AD_REMINDER_OFF = 0
-        const val VIDEO_AD_REMINDER_SIX_HOURS = 1
-        const val VIDEO_AD_REMINDER_ALWAYS = 2
-        const val VIDEO_AD_REMINDER_INTERVAL_MILLIS = 6 * 60 * 60 * 1000L
         const val KEY_PRO_BRANDING_DISABLED = "pro_branding_disabled"
         const val KEY_SELECTED_APP_ICON = "selected_app_icon"
-
-        fun shouldShowVideoAdReminder(mode: Int, lastShown: Long, now: Long): Boolean =
-            mode == VIDEO_AD_REMINDER_SIX_HOURS &&
-                now - lastShown >= VIDEO_AD_REMINDER_INTERVAL_MILLIS
 
         val EXCLUDED_KEYS = setOf(
             KEY_APP_USAGE_SECONDS,
@@ -970,10 +958,6 @@ class PreferenceManager(context: Context) {
         setString(KEY_SUPPORT_PURCHASE_PRODUCT, productId)
         setSupporter(true)
     }
-    fun hasAdSupportedPro(): Boolean = System.currentTimeMillis() < getLong(KEY_PRO_AD_EXPIRY, 0L)
-    fun grantAdSupportedPro(durationMillis: Long = 6 * 60 * 60 * 1000L) {
-        setLong(KEY_PRO_AD_EXPIRY, System.currentTimeMillis() + durationMillis)
-    }
 
     fun isAppwideVibrationEnabled(): Boolean =
         try {
@@ -1040,24 +1024,6 @@ class PreferenceManager(context: Context) {
 
     fun isProStatus(): Boolean = getBoolean(KEY_PRO_STATUS, false)
     fun setProStatus(isPro: Boolean) = setBoolean(KEY_PRO_STATUS, isPro)
-
-    fun getVideoAdReminderMode(): Int =
-        getInt(KEY_VIDEO_AD_REMINDER_MODE, VIDEO_AD_REMINDER_SIX_HOURS)
-            .coerceIn(VIDEO_AD_REMINDER_OFF, VIDEO_AD_REMINDER_ALWAYS)
-    fun setVideoAdReminderMode(mode: Int) = setInt(KEY_VIDEO_AD_REMINDER_MODE, mode)
-    fun shouldShowVideoAdReminder(now: Long = System.currentTimeMillis()): Boolean {
-        return when (getVideoAdReminderMode()) {
-            VIDEO_AD_REMINDER_ALWAYS -> true
-            VIDEO_AD_REMINDER_SIX_HOURS -> shouldShowVideoAdReminder(
-                VIDEO_AD_REMINDER_SIX_HOURS,
-                getLong(KEY_LAST_VIDEO_AD_REMINDER, 0L),
-                now
-            )
-            else -> false
-        }
-    }
-    fun markVideoAdReminderShown(now: Long = System.currentTimeMillis()) =
-        setLong(KEY_LAST_VIDEO_AD_REMINDER, now)
 
     fun isProBrandingDisabled(): Boolean = getBoolean(KEY_PRO_BRANDING_DISABLED, false)
     fun setProBrandingDisabled(disabled: Boolean) = setBoolean(KEY_PRO_BRANDING_DISABLED, disabled)
