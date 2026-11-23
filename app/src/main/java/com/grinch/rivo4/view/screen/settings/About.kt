@@ -277,7 +277,7 @@ fun AboutScreen(navigator: DestinationsNavigator) {
             }
 
             Text(
-                text = stringResource(R.string.about_copyright),
+                text = "Based on / Forked from RivoPhoneApp by Grinch_ (https://github.com/user-grinch/RivoPhoneApp)\nCopyright (C) 2025-2026 RivoPhone Project.\nModified from RivoPhoneApp on 2026-11-23 (debloated / ads removed).\n" + stringResource(R.string.about_copyright),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.outline,
                 textAlign = TextAlign.Center,

@@ -13,12 +13,12 @@ def baseVersionName = "2.3"
 
 android {
     namespace = 'com.grinch.rivo4'
-    compileSdk = 37
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.grinch.rivo4"
         minSdk = 31
-        targetSdk = 37
+        targetSdk = 36
         versionCode = baseVersionCode + buildNumber
         versionName = isPreviewBuild ? "${baseVersionName}.${buildNumber}-preview" : baseVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -102,13 +102,9 @@ android {
 
     flavorDimensions "distribution"
     productFlavors {
-        play {
-            dimension "distribution"
-            isDefault = true
-            signingConfig = signingConfigs.release
-        }
         foss {
             dimension "distribution"
+            isDefault = true
             minSdk = 29
         }
     }
@@ -119,27 +115,13 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def flavorSuffix = (variant.flavorName == "foss") ? "_degoogled" : ""
             def buildTypeSuffix = (variant.buildType.name == "debug") ? "-debug" : ""
-            outputFileName = "RivoPhone${flavorSuffix}${buildTypeSuffix}.apk"
+            outputFileName = "RivoPhone_degoogled${buildTypeSuffix}.apk"
         }
     }
 }
 
 afterEvaluate {
-    tasks.matching { it.name == "bundlePlayRelease" }.configureEach { task ->
-        task.doLast {
-            def outDir = layout.buildDirectory.dir("outputs/bundle/playRelease").get().asFile
-            if (outDir.exists()) {
-                outDir.listFiles()?.each { file ->
-                    if (file.name.endsWith(".aab") && !file.name.contains("RivoPhone_bundle")) {
-                        file.renameTo(new File(outDir, "RivoPhone_bundle.aab"))
-                    }
-                }
-            }
-        }
-    }
-
     // Prevent Windows java.nio.file.FileAlreadyExistsException during KSP compilation
     tasks.matching { it.name.startsWith("ksp") && it.name.endsWith("Kotlin") }.configureEach { task ->
         task.doFirst {
@@ -153,8 +135,6 @@ afterEvaluate {
 }
 
 dependencies {
-    playImplementation 'com.google.android.gms:play-services-ads:23.6.0'
-    playImplementation 'com.android.billingclient:billing-ktx:8.0.0'
     implementation platform('androidx.compose:compose-bom:2025.12.01')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.material3:material3:1.5.0-alpha18'

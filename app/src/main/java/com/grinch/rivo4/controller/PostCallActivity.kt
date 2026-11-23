@@ -9,7 +9,6 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.grinch.rivo4.view.components.ad.AdPreloader
 import com.grinch.rivo4.view.screen.PostCallScreen
 import com.grinch.rivo4.view.theme.Rivo4Theme
 
@@ -18,7 +17,6 @@ class PostCallActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        AdPreloader.preloadPostCallAd(this@PostCallActivity)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
