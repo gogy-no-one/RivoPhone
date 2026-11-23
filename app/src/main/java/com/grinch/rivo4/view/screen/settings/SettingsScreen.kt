@@ -1608,7 +1608,7 @@ val searchItems = remember(isSearchActive) {
                             leadingIcon = Icons.Outlined.Analytics,
                             onClick = {
                                 prefs.addSettingsHistory(headline)
-                                navigator.navigate(CallAnalyticsScreenDestination())
+                                navigator.navigate(CallAnalyticsScreenDestination)
                             }
                         )
                     }
