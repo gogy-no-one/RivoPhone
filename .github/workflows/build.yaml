@@ -1,0 +1,79 @@
+name: Build & Release
+
+on:
+  push:
+    branches:
+      - main
+      - gplv3
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository (gplv3 source branch)
+        uses: actions/checkout@v4
+        with:
+          ref: gplv3
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Generate Debug Keystore if missing
+        run: |
+          mkdir -p ~/.android
+          keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US" || true
+
+      - name: Grant execute permission for gradlew
+        run: |
+          sed -i 's/\r$//' gradlew gradle/wrapper/gradle-wrapper.properties
+          chmod +x ./gradlew
+
+      - name: Build Debloated FOSS Artifact
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+          GRADLE_OPTS: "-Xmx4096m -XX:+UseParallelGC"
+        run: |
+          sed -i '/org.gradle.java.home/d' gradle.properties
+          sed -i '/org.gradle.project.buildDir/d' gradle.properties
+          ./gradlew assembleFossRelease -PdisableDependencyInfo --no-daemon
+
+      - name: Collect and Organize Outputs
+        run: |
+          mkdir -p outputs
+          find app/build/outputs -type f -name "*.apk" -exec cp {} outputs/ \;
+          ls -lah outputs/
+
+      - name: Generate SHA256 checksums
+        run: |
+          cd outputs
+          sha256sum * > SHA256SUMS.txt || true
+
+      - name: Publish Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: v2.3-debloated
+          name: "Debloated Rivo Phone v2.3 (Vibe Coded)"
+          commit: gplv3
+          artifacts: outputs/*
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          prerelease: false
+          body: |
+            ### ✨ Debloated Rivo Phone (`rivo_debloted`) — Vibe Coded Release
+            This is a **100% debloated, ad-free** build of Rivo Phone — and yes, it was **vibe coded**!
+
+            - **Removed:** Google Mobile Ads (AdMob), Google Play Billing, banner ads, post-call/missed-call native ads, floating video ad reminders, and `AD_ID` permission.
+            - **Download:** Grab `RivoPhone_degoogled.apk` below.
+
+            > Based on / Forked from **RivoPhoneApp by Grinch_** (`https://github.com/user-grinch/RivoPhoneApp`), Copyright (C) 2025-2026 RivoPhone Project (GPL-3.0).
