@@ -589,13 +589,6 @@ fun CallLogFullScreen(
                                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp),
                                 verticalArrangement = Arrangement.spacedBy(3.dp)
                             ) {
-                                if (!isHistoryWithContact) {
-                                    item(key = "ad_header", contentType = "ad") {
-                                        com.grinch.rivo4.view.components.ad.BannerAd()
-                                        Spacer(modifier = Modifier.height(4.dp))
-                                    }
-                                }
-
                                 groupedLogs.entries.forEachIndexed { groupIndex, (header, logsInGroup) ->
                                     item(key = "header_${header}_$groupIndex", contentType = "header") {
                                         RivoSectionHeader(
@@ -744,7 +737,7 @@ fun CallLogFullScreen(
                                                                 Modifier
                                                                     .clip(shape)
                                                                     .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                                                                } else Modifier
+                                                            } else Modifier
                                                         )
                                                 ) {
                                                     CallLogTileSimple(
