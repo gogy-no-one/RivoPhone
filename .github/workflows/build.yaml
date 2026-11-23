@@ -2,25 +2,11 @@ name: Build & Release
 
 on:
   push:
-    paths-ignore:
-      - '*.md'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'images/**'
-      - '.idea/**'
     branches:
-      - main
+      - gplv3
     tags:
       - 'v*'
-  pull_request:
-    paths-ignore:
-      - '*.md'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'images/**'
-      - '.idea/**'
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -40,110 +26,51 @@ jobs:
           java-version: "17"
           cache: gradle
 
-      - name: Decode Keystore
+      - name: Generate Debug Keystore if missing
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/keystore.jks
+          mkdir -p ~/.android
+          keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US" || true
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+        run: |
+          sed -i 's/\r$//' gradlew gradle/wrapper/gradle-wrapper.properties
+          chmod +x ./gradlew
 
-      - name: Build Play Store Artifacts
+      - name: Build Debloated FOSS Artifact
         env:
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEYSTORE_PATH: ../app/keystore.jks
           BUILD_NUMBER: ${{ github.run_number }}
           GRADLE_OPTS: "-Xmx4096m -XX:+UseParallelGC"
         run: |
           sed -i '/org.gradle.java.home/d' gradle.properties
-          ./gradlew assemblePlayRelease bundlePlayRelease --no-daemon
-
-      - name: Build FOSS Artifact
-        env:
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEYSTORE_PATH: ../app/keystore.jks
-          # Match F-Droid's tag build, which does not provide a build number.
-          BUILD_NUMBER: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && '0' || github.run_number }}
-          GRADLE_OPTS: "-Xmx4096m -XX:+UseParallelGC"
-        run: |
+          sed -i '/org.gradle.project.buildDir/d' gradle.properties
           ./gradlew assembleFossRelease -PdisableDependencyInfo --no-daemon
 
       - name: Collect and Organize Outputs
         run: |
           mkdir -p outputs
-
-          # Copy APKs and AABs from standard build directories
-          find app/build/outputs -type f \( -name "*.apk" -o -name "*.aab" \) -exec cp {} outputs/ \;
-
-          echo "Collected files in outputs/:"
+          find app/build/outputs -type f -name "*.apk" -exec cp {} outputs/ \;
           ls -lah outputs/
-
-      - name: Extract Signing Certificate Fingerprint
-        run: |
-          echo "Extracting SHA256 Fingerprint from Keystore..."
-          keytool -list -v -keystore app/keystore.jks -alias "${{ secrets.KEY_ALIAS }}" -storepass "${{ secrets.KEYSTORE_PASSWORD }}" > outputs/SIGNING_CERTIFICATE_DETAILS.txt
-
-          echo "APK Signing Certificate SHA256 Fingerprint:" > outputs/SIGNING_CERTIFICATE_SHA256.txt
-          grep "SHA256: " outputs/SIGNING_CERTIFICATE_DETAILS.txt | cut -d " " -f 3 >> outputs/SIGNING_CERTIFICATE_SHA256.txt
 
       - name: Generate SHA256 checksums
         run: |
           cd outputs
           sha256sum * > SHA256SUMS.txt || true
-          for f in *; do
-            if [[ "$f" != *.sha256 && "$f" != "SHA256SUMS.txt" ]]; then
-              sha256sum "$f" > "$f.sha256"
-            fi
-          done
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Release-Artifacts
-          path: outputs/
-
-      - name: Delete old preview release and tag
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release delete preview --cleanup-tag -y || true
-
-      - name: Publish Preview Release (Main Branch)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Publish Release
         uses: ncipollo/release-action@v1
         with:
-          tag: preview
-          name: Preview Build
+          tag: v2.3-debloated
+          name: "Debloated Rivo Phone v2.3 (Vibe Coded)"
           commit: ${{ github.sha }}
-          artifacts: outputs/*
-          token: ${{ secrets.GITHUB_TOKEN }}
-          prerelease: true
-          body: |
-            ### ⚠️ Preview / Pre-Release Build
-            > This is an **automated preview build** compiled directly from the latest `main` branch. It contains the newest features, bug fixes, and improvements ahead of official releases, but may occasionally contain experimental changes or bugs.
-            >
-            > *Found an issue? Please [open a bug report](https://github.com/user-grinch/RivoPhoneApp/issues).*
-
-            ---
-
-            ### 📥 Downloads
-
-            | Flavor | File | Description |
-            | :--- | :--- | :--- |
-            | 🌟 **Standard (Recommended)** | [`RivoPhone.apk`](https://github.com/user-grinch/RivoPhoneApp/releases/download/preview/RivoPhone.apk) | Full featured build including all Google libraries and features. |
-            | 🍃 **De-Googled** | [`RivoPhone_degoogled.apk`](https://github.com/user-grinch/RivoPhoneApp/releases/download/preview/RivoPhone_degoogled.apk) | Stripped build intended for F-Droid / IzzyOnDroid. Google Play libraries are excluded. May have some features missing or partially broken. |
-
-      - name: Publish Production Release (Version Tags)
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
           artifacts: outputs/*
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           prerelease: false
+          body: |
+            ### ✨ Debloated Rivo Phone (`rivo_debloted`) — Vibe Coded Release
+            This is a **100% debloated, ad-free** build of Rivo Phone — and yes, it was **vibe coded**!
+
+            - **Removed:** Google Mobile Ads (AdMob), Google Play Billing, banner ads, post-call/missed-call native ads, floating video ad reminders, and `AD_ID` permission.
+            - **Download:** Grab `RivoPhone_degoogled.apk` below.
+
+            > Based on / Forked from **RivoPhoneApp by Grinch_** (`https://github.com/user-grinch/RivoPhoneApp`), Copyright (C) 2025-2026 RivoPhone Project (GPL-3.0).
