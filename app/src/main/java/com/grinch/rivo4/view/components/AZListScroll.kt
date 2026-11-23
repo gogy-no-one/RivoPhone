@@ -106,15 +106,10 @@ fun AZListScroll(
         Triple(map, idx, lastId)
     }
 
-    val adsEnabled = remember(settingsState) {
-        com.grinch.rivo4.view.components.ad.IS_ADS_SUPPORTED &&
-            prefs.getBoolean(PreferenceManager.KEY_ENABLE_ADS, true)
-    }
-
-    val alphabetIndices = remember(finalGrouped, header != null, showSectionHeaders, adsEnabled) {
+    val alphabetIndices = remember(finalGrouped, header != null, showSectionHeaders) {
         val map = mutableMapOf<Char, Int>()
         var currentIndex = if (header != null) 1 else 0
-        finalGrouped.entries.forEachIndexed { groupIndex, (char, contactsForChar) ->
+        finalGrouped.entries.forEach { (char, contactsForChar) ->
             map[char] = currentIndex
             // 1 for section header
             if (showSectionHeaders) {
@@ -122,10 +117,6 @@ fun AZListScroll(
             }
             // 1 for each contact
             currentIndex += contactsForChar.size
-            // 1 for banner ad if ads enabled and groupIndex % 3 == 1
-            if (adsEnabled && groupIndex % 3 == 1) {
-                currentIndex += 1
-            }
         }
         map
     }
@@ -311,12 +302,6 @@ fun AZListScroll(
                                 color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
                             )
                         }
-                    }
-                }
-
-                if (adsEnabled && groupIndex % 3 == 1) {
-                    item(key = "ad_$groupIndex") {
-                        com.grinch.rivo4.view.components.ad.BannerAd()
                     }
                 }
             }

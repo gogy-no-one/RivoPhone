@@ -63,7 +63,6 @@ import com.grinch.rivo4.view.screen.settings.toCallRecordingItem
 import com.grinch.rivo4.view.theme.LocalCardRoundness
 import com.grinch.rivo4.view.theme.rivoCornerDp
 import com.grinch.rivo4.view.theme.rivoCornerShape
-import com.grinch.rivo4.view.components.ad.PostCallNativeAd
 import android.text.format.DateUtils
 import kotlinx.coroutines.delay
 
@@ -509,13 +508,6 @@ fun PostCallScreen(
                             }
                         }
                     }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    // Big Ad Card (Native Advanced with MediaView in Play variant)
-                    PostCallNativeAd(
-                        modifier = Modifier.fillMaxWidth()
-                    )
 
                     Spacer(modifier = Modifier.height(4.dp))
                 }

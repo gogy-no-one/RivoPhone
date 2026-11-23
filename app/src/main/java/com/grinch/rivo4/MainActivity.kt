@@ -11,8 +11,6 @@ import android.util.Log
 import android.telecom.Call
 import com.grinch.rivo4.controller.CallActivity
 import com.grinch.rivo4.controller.CallService
-import com.grinch.rivo4.controller.ads.ConsentManager
-import com.grinch.rivo4.view.components.ad.AdPreloader
 import com.grinch.rivo4.view.components.OngoingCallTopBanner
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -130,12 +128,6 @@ open class MainActivity : androidx.fragment.app.FragmentActivity() {
             startKoin {
                 androidContext(this@MainActivity)
                 modules(appModule)
-            }
-        }
-
-        ConsentManager.gatherConsent(this) { _ ->
-            if (ConsentManager.canRequestAds(this)) {
-                AdPreloader.init(this)
             }
         }
 
